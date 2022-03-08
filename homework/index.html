@@ -27,10 +27,9 @@
             padding : 20px;
         }
 
-        .card-title {
-            display: inline;
+        .card-body {
+            padding-bottom: 15px;
         }
-
         .btn-primary {
             margin: auto;
             width: 100px;
@@ -38,9 +37,35 @@
         label {
             color: blue;
         }
+
+        h5 {
+            display: inline;
+        }
+
+        #exchangeRate {
+            margin : 0px  0px 15px 0px;
+            color: blue;
+        }
+
     </style>
 
     <title>스파르타코딩클럽 | 부트스트랩 연습하기</title>
+
+    <script>
+        $(document).ready(function() {
+
+            $.ajax({
+                type: "GET",
+                url: "http://spartacodingclub.shop/sparta_api/rate",
+                data: {},
+                success: function (response) {
+                    let rate = response['rate'];
+                    $('#exchangeRate').html(`달러-원 환율 : ${rate}`)
+                }
+            })
+
+        });
+    </script>
 </head>
 
 <body>
@@ -48,16 +73,18 @@
         <img class="card-img-top" src="https://img.animalplanet.co.kr/news/2020/04/29/700/06y09259jjd7r2jx668t.jpg" alt="Card image cap">
         <div class="card-body">
             <div class="card-title">
-                <h5> 웰시코기 분양 </h5>
-                <span>이름: 햄곤</span>
-                <span class="card-text">귀여운 웰시코기를 분양 합니다.</span>
+                <h5> 웰시코기 분양 </h5>  <span class="card-text"> 가격 : 1,000,000원 </span>
             </div>
-            <p class="card-text">가격 : 귀여운 엉덩이</p>
+            <div class="card-text">
+                <div>이름: 햄곤</div>
+                <div>내용 : 귀여운 웰시코기를 분양 합니다.</div>
+            </div>
         </div>
+        <div id="exchangeRate"></div>
         <form>
             <div class="form-group">
                 <label for="exampleFormControlInput1">주문자 이름</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="이름">
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="이름">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1">수량</label>
@@ -75,7 +102,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput3">전화번호</label>
-                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="000-0000-0000">
+                <input type="tel" class="form-control" id="exampleFormControlInput3" placeholder="000-0000-0000">
             </div>
         </form>
         <button type="button" class="btn btn-primary">주문하기</button>
